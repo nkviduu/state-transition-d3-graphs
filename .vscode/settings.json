@@ -1,0 +1,14 @@
+{
+  "eslint.enable": true,
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "prettier.disableLanguages": [
+    "js", "javascript"
+  ],
+  "importCost.bundleSizeDecoration": "both",
+  "importCost.timeout": 60000
+}

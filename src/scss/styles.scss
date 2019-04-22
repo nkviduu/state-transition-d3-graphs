@@ -1,0 +1,53 @@
+// $primary-color: white;
+$bg: #f5f5f5;
+
+$subheadingFontSize: 0.8rem;
+$fontSize: 0.65rem;
+
+body {
+  font-family: Arial;
+  font-size: 0.9rem;
+  background-color: $bg;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  padding: 8px;
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.description {
+  font-size: 0.8rem;
+  margin: 1.4rem 0.8rem 0.8rem;
+}
+
+.tabs {
+  margin: 24px 0 42px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem;
+  color: black;
+}
+
+.static-donut-graphs,
+.transition-donught-graphs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.static-donut-graphs .state-change-donut-graph {
+  max-width: 45vw;
+}
+
+@import '_graph-container';
+@import 'components/ContentManager';
+@import 'components/_SplitTitle';
+@import 'components/_Tabs';

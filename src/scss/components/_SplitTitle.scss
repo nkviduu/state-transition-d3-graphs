@@ -1,0 +1,45 @@
+$splitTitleSize: .9rem;
+
+.split-title {
+  text-align: center;
+  font-size: $splitTitleSize;
+
+    button {
+    display: inline-block;
+    margin: 0 6px;
+    padding: 0 0 4px;
+    background: transparent;
+    border: none;
+    transition: all 350ms;
+    font-size: $splitTitleSize;
+    opacity: .5;
+    position: relative;
+    cursor: pointer;
+
+
+    &:after {
+      content: "";
+      width: 0;
+      height: 2px;
+      left: 0;
+      bottom: -1px;
+      position: absolute;
+      background: #40b3f7;
+      transition: all 350ms;
+    }
+
+    &:first-child:after {
+      right: 0;
+      left: auto;
+    }
+
+    &.is-selected {
+      opacity: 1;
+    }
+
+    &.is-selected:after {
+      width: 100%;
+    }
+
+  }
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>D3 state change graph</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  </head>
+  <body>
+    <main>
+      <h1>
+        Visualization of change to whole using custom D3 graphs
+      </h1>
+      <div class="description-with-managers">
+        <div class="description">
+          <p>
+            It is common in dataset evaluation understanding of change current
+            to new or current to past state. For example in viewing financial
+            advice recomendation one may want to have clear idea of required
+            transaction scale to transition to recommended allocations.
+            Following is a set of graphs to aid change assesment for given
+            sample set of asset class re-allocation recomendation.
+          </p>
+          <p>
+            Graphs are implemented using popular low level D3 library to form
+            basis for fine grain control of specifc implementation needs. The
+            required fine grain control is something that may not be available
+            in quicker and easier to implement higher abstraction level library
+            such as HighCharts or C3.
+          </p>
+          <p>
+            In following example D3 implementated graph components are wrapped
+            in React component interface for easier re usability. Graphs are
+            implemented with ability to wrap them as well in Angular or View
+            components or using directly in Javascript.
+          </p>
+        </div>
+      </div>
+      <div class="graphs"></div>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>

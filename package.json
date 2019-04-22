@@ -1,0 +1,43 @@
+{
+	"name": "state-change-graph",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"homepage": "https://nkviduu.github.io/state-transition-d3-graphs",
+	"scripts": {
+		"clean": "rm dist/bundle.js",
+    "start": "parcel src/index.html",
+    "deploy": "gh-pages -d dist",
+		"build": "NODE_ENV=production parcel build src/index.html build",
+		"build-prod": "NODE_ENV=production parcel build src/index.html build --experimental-scope-hoisting --public-url '.' "
+	},
+	"dependencies": {
+		"d3-array": "^2.0.3",
+		"d3-axis": "^1.0.12",
+		"d3-color": "^1.2.3",
+		"d3-format": "^1.3.2",
+		"d3-scale": "^3.0.0",
+		"d3-selection": "^1.4.0",
+		"d3-selection-multi": "^1.0.1",
+		"d3-shape": "^1.3.5",
+		"interpolate": "^0.1.0",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"remove-focus-outline": "^1.2.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.4.3",
+		"@babel/preset-env": "^7.4.3",
+		"@babel/preset-react": "^7.0.0",
+		"autoprefixer": "^9.5.0",
+		"eslint": "^5.16.0",
+		"eslint-config-prettier": "^4.1.0",
+		"eslint-plugin-prettier": "^3.0.1",
+		"eslint-plugin-react-app": "^4.0.1",
+		"parcel-bundler": "^1.12.3",
+		"parcel-plugin-bundle-visualiser": "^1.2.0",
+		"prettier": "^1.16.4",
+		"sass": "^1.17.4",
+		"gh-pages": "^2.0.1"
+	}
+}
