@@ -23,7 +23,7 @@ main {
 
 .description {
   font-size: 0.8rem;
-  margin: 1.4rem 0.8rem 0.8rem;
+  margin: 1.4rem 0.8rem 1.4rem;
 }
 
 .tabs {
@@ -62,5 +62,21 @@ h1 {
 
   h3 {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .tab-list-item.tab-list-item {
+    padding: 0.5rem 0.42rem;
+    border-right: solid 1px #ccc;
+    font-size: 0.85rem;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .tab-content {
+    margin: 0 -1rem 0 -1rem;
   }
 }

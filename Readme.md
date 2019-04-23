@@ -7,3 +7,7 @@ context past or future data state comparison with current data.
 
 Graph components are self contained folders for usability at expense of duplication of included
 components such as SplitTitle exists in both Bar and Donut graph components
+
+Demo screen capture
+
+![Demo screen capture animated gif](src/static/images/state_change_visualization_d3.gif)

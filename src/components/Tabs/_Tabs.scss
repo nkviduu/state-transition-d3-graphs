@@ -8,6 +8,7 @@
   list-style: none;
   margin-bottom: -1px;
   padding: 0.5rem 0.75rem;
+  color: #777;
   cursor: pointer;
 
   &:hover {
@@ -16,6 +17,7 @@
 }
 
 .tab-list-item-active {
+  color: #000;
   background-color: #f9f9f9;
   border-bottom: solid 3px #40b3f7;
 }

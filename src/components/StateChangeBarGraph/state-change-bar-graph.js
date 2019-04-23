@@ -180,15 +180,15 @@ export function createChangeGraph(
                 ? returnTransitionDuration
                 : transitionDuration;
             })
-            .delay(function(d, i) {
-              if (type === 'curr') {
-                return 0;
-              }
-              const delay = this.parentNode.classList.contains('cls_buy')
-                ? transitionDuration * 0.8
-                : 0;
-              return delay;
-            })
+            // .delay(function(d, i) {
+              // if (type === 'curr') {
+              //   return 0;
+              // }
+              // const delay = this.parentNode.classList.contains('cls_buy')
+              //   ? transitionDuration * 0.8
+              //   : 0;
+              // return delay;
+            // })
             .attrs(updates),
       );
   }

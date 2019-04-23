@@ -10,5 +10,6 @@
     "js", "javascript"
   ],
   "importCost.bundleSizeDecoration": "both",
-  "importCost.timeout": 60000
+  "importCost.timeout": 60000,
+  "liveServer.settings.port": 5501
 }

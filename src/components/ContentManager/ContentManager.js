@@ -5,7 +5,7 @@ export default function ContentManager({
   contentHost,
   data = [],
   onChange = () => {},
-  debounceWait = 350,
+  debounceWait = 650,
   formatExistingInput = true,
   title = 'Data Editor',
 }) {
