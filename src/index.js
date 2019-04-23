@@ -11,8 +11,6 @@ import DonutGraph from './components/StateChangeDonutGraph';
 import ContentManager from './components/ContentManager/';
 import { Tab, Tabs } from './components/Tabs';
 
-console.log({ DonutGraph })
-
 const data = {
   current: [
     ['Equities', '2,604,950'],
@@ -79,7 +77,7 @@ class App extends Component {
         <Tabs>
           <div label="Transition">
             <p className="description">
-              Bar graph defining change amount in in each category in relation to static and recomended values.  
+              Bar graph defining each categories change amount with reference to static and new values.  
             </p>
             <BarGraph
               data={data}
