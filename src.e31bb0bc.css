@@ -52,7 +52,78 @@ h1 {
 .graph-container h3 {
   font-size: 1rem;
 }
-
+.split-title {
+  text-align: center;
+  font-size: 0.9rem;
+}
+.split-title button {
+  display: inline-block;
+  margin: 0 6px;
+  padding: 0 0 4px;
+  background: transparent;
+  border: none;
+  transition: all 350ms;
+  font-size: 0.9rem;
+  opacity: 0.5;
+  position: relative;
+  cursor: pointer;
+}
+.split-title button:after {
+  content: "";
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -1px;
+  position: absolute;
+  background: #40b3f7;
+  transition: all 350ms;
+}
+.split-title button:first-child:after {
+  right: 0;
+  left: auto;
+}
+.split-title button.is-selected {
+  opacity: 1;
+}
+.split-title button.is-selected:after {
+  width: 100%;
+}
+.split-title {
+  text-align: center;
+  font-size: 0.9rem;
+}
+.split-title button {
+  display: inline-block;
+  margin: 0 6px;
+  padding: 0 0 4px;
+  background: transparent;
+  border: none;
+  transition: all 350ms;
+  font-size: 0.9rem;
+  opacity: 0.5;
+  position: relative;
+  cursor: pointer;
+}
+.split-title button:after {
+  content: "";
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -1px;
+  position: absolute;
+  background: #40b3f7;
+  transition: all 350ms;
+}
+.split-title button:first-child:after {
+  right: 0;
+  left: auto;
+}
+.split-title button.is-selected {
+  opacity: 1;
+}
+.split-title button.is-selected:after {
+  width: 100%;
+}
 .content-manager {
   font-size: 0.8rem;
   font-family: Arial;
@@ -100,44 +171,6 @@ h1 {
   background: white;
   border: solid 1px #eee;
 }
-
-.split-title {
-  text-align: center;
-  font-size: 0.9rem;
-}
-.split-title button {
-  display: inline-block;
-  margin: 0 6px;
-  padding: 0 0 4px;
-  background: transparent;
-  border: none;
-  transition: all 350ms;
-  font-size: 0.9rem;
-  opacity: 0.5;
-  position: relative;
-  cursor: pointer;
-}
-.split-title button:after {
-  content: "";
-  width: 0;
-  height: 2px;
-  left: 0;
-  bottom: -1px;
-  position: absolute;
-  background: #40b3f7;
-  transition: all 350ms;
-}
-.split-title button:first-child:after {
-  right: 0;
-  left: auto;
-}
-.split-title button.is-selected {
-  opacity: 1;
-}
-.split-title button.is-selected:after {
-  width: 100%;
-}
-
 .tab-list {
   border-bottom: 1px solid #ccc;
   padding-left: 0;

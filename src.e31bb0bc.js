@@ -40040,7 +40040,7 @@ _d3Selection.selection.prototype.styles = _styles.default;
 _d3Selection.selection.prototype.properties = _properties.default;
 _d3Transition.transition.prototype.attrs = _attrs2.default;
 _d3Transition.transition.prototype.styles = _styles2.default;
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","./src/selection/attrs":"../node_modules/d3-selection-multi/src/selection/attrs.js","./src/selection/styles":"../node_modules/d3-selection-multi/src/selection/styles.js","./src/selection/properties":"../node_modules/d3-selection-multi/src/selection/properties.js","./src/transition/attrs":"../node_modules/d3-selection-multi/src/transition/attrs.js","./src/transition/styles":"../node_modules/d3-selection-multi/src/transition/styles.js"}],"dom-components/state-change-bar-graph.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","./src/selection/attrs":"../node_modules/d3-selection-multi/src/selection/attrs.js","./src/selection/styles":"../node_modules/d3-selection-multi/src/selection/styles.js","./src/selection/properties":"../node_modules/d3-selection-multi/src/selection/properties.js","./src/transition/attrs":"../node_modules/d3-selection-multi/src/transition/attrs.js","./src/transition/styles":"../node_modules/d3-selection-multi/src/transition/styles.js"}],"components/StateChangeBarGraph/state-change-bar-graph.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40400,7 +40400,12 @@ function wrapPre(text, colors) {
     return '#777';
   }
 }
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-selection-multi":"../node_modules/d3-selection-multi/index.js"}],"components/SplitTitle.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-selection-multi":"../node_modules/d3-selection-multi/index.js"}],"components/StateChangeBarGraph/_SplitTitle.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/StateChangeBarGraph/SplitTitle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40409,6 +40414,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = SplitTitle;
 
 var _react = _interopRequireDefault(require("react"));
+
+require("./_SplitTitle.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40446,7 +40453,7 @@ function SplitTitle(_ref) {
   }, _react.default.createElement("button", {
     className: firstSelected && 'is-selected' || '',
     onClick: function onClick() {
-      return console.log('select'), onSelect(true);
+      return onSelect(true);
     }
   }, first), _react.default.createElement("button", {
     className: !firstSelected && 'is-selected' || '',
@@ -40455,7 +40462,7 @@ function SplitTitle(_ref) {
     }
   }, second));
 }
-},{"react":"../node_modules/react/index.js"}],"components/StateChangeBarGraph.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./_SplitTitle.scss":"components/StateChangeBarGraph/_SplitTitle.scss"}],"components/StateChangeBarGraph/StateChangeBarGraph.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40465,7 +40472,7 @@ exports.default = StateChageGraph;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _stateChangeBarGraph = require("../dom-components/state-change-bar-graph");
+var _stateChangeBarGraph = require("./state-change-bar-graph");
 
 var _SplitTitle = _interopRequireDefault(require("./SplitTitle"));
 
@@ -40529,7 +40536,37 @@ function StateChageGraph(_ref) {
     ref: svg
   }));
 }
-},{"react":"../node_modules/react/index.js","../dom-components/state-change-bar-graph":"dom-components/state-change-bar-graph.js","./SplitTitle":"components/SplitTitle.js"}],"dom-components/state-change-donut-graph.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./state-change-bar-graph":"components/StateChangeBarGraph/state-change-bar-graph.js","./SplitTitle":"components/StateChangeBarGraph/SplitTitle.js"}],"components/StateChangeBarGraph/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _StateChangeBarGraph.default;
+  }
+});
+Object.defineProperty(exports, "createChangeGraph", {
+  enumerable: true,
+  get: function () {
+    return _stateChangeBarGraph.createChangeGraph;
+  }
+});
+Object.defineProperty(exports, "processData", {
+  enumerable: true,
+  get: function () {
+    return _stateChangeBarGraph.processData;
+  }
+});
+
+var _StateChangeBarGraph = _interopRequireDefault(require("./StateChangeBarGraph"));
+
+var _stateChangeBarGraph = require("./state-change-bar-graph");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./StateChangeBarGraph":"components/StateChangeBarGraph/StateChangeBarGraph.js","./state-change-bar-graph":"components/StateChangeBarGraph/state-change-bar-graph.js"}],"components/StateChangeDonutGraph/state-change-donut-graph.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40824,7 +40861,69 @@ function toPercent(v) {
 function truncateWithEllipses(text, max) {
   return text.substr(0, max - 1) + (text.length > max ? '...' : '');
 }
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-selection-multi":"../node_modules/d3-selection-multi/index.js"}],"components/StateChangeDonutGraph.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-selection-multi":"../node_modules/d3-selection-multi/index.js"}],"components/StateChangeDonutGraph/_SplitTitle.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/StateChangeDonutGraph/SplitTitle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = SplitTitle;
+
+var _react = _interopRequireDefault(require("react"));
+
+require("./_SplitTitle.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function SplitTitle(_ref) {
+  var title = _ref.title,
+      firstSelected = _ref.firstSelected,
+      _ref$onSelect = _ref.onSelect,
+      onSelect = _ref$onSelect === void 0 ? function () {} : _ref$onSelect;
+
+  if (!title) {
+    return null;
+  }
+
+  var _title$split = title.split('::'),
+      _title$split2 = _slicedToArray(_title$split, 2),
+      first = _title$split2[0],
+      second = _title$split2[1];
+
+  if (!second) {
+    return _react.default.createElement("div", {
+      className: "split-title"
+    }, title);
+  }
+
+  return _react.default.createElement("div", {
+    className: "split-title"
+  }, _react.default.createElement("button", {
+    className: firstSelected && 'is-selected' || '',
+    onClick: function onClick() {
+      return onSelect(true);
+    }
+  }, first), _react.default.createElement("button", {
+    className: !firstSelected && 'is-selected' || '',
+    onClick: function onClick() {
+      return onSelect(false);
+    }
+  }, second));
+}
+},{"react":"../node_modules/react/index.js","./_SplitTitle.scss":"components/StateChangeDonutGraph/_SplitTitle.scss"}],"components/StateChangeDonutGraph/StateChangeDonutGraph.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40834,7 +40933,7 @@ exports.default = StateChageDonutGraph;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _stateChangeDonutGraph = _interopRequireDefault(require("../dom-components/state-change-donut-graph"));
+var _stateChangeDonutGraph = _interopRequireDefault(require("./state-change-donut-graph"));
 
 var _SplitTitle = _interopRequireDefault(require("./SplitTitle"));
 
@@ -40887,7 +40986,28 @@ function StateChageDonutGraph(_ref) {
     }
   }));
 }
-},{"react":"../node_modules/react/index.js","../dom-components/state-change-donut-graph":"dom-components/state-change-donut-graph.js","./SplitTitle":"components/SplitTitle.js"}],"utils/currency.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./state-change-donut-graph":"components/StateChangeDonutGraph/state-change-donut-graph.js","./SplitTitle":"components/StateChangeDonutGraph/SplitTitle.js"}],"components/StateChangeDonutGraph/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _StateChangeDonutGraph.default;
+  }
+});
+
+var _StateChangeDonutGraph = _interopRequireDefault(require("./StateChangeDonutGraph"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./StateChangeDonutGraph":"components/StateChangeDonutGraph/StateChangeDonutGraph.js"}],"components/ContentManager/ContentManager.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/ContentManager/currency.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40897,15 +41017,14 @@ exports.applyCurrencyHandler = applyCurrencyHandler;
 exports.currencyInputFactory = currencyInputFactory;
 exports.formatNumber = formatNumber;
 
-// module.exports = {
-//   applyCurrencyHandler,
-//   currencyInputFactory,
-//   formatNumber,
-// }
-// applies currencyHandler for contaner,
-// inputClassName identifies inputs to be handled as currency
-// inputIncomplete will be added to incomplete inputs after change
-// onUpdate call back function invoked ofter input and onFocusout events
+/**
+ * 
+ * @param {object} config 
+ * applies currencyHandler for contaner,
+ * inputClassName identifies inputs to be handled as currency
+ * inputIncomplete will be added to incomplete inputs after change
+ * onUpdate call back function invoked ofter input and onFocusout events
+ */
 function applyCurrencyHandler(_ref) {
   var container = _ref.container,
       _ref$inputClassName = _ref.inputClassName,
@@ -41028,7 +41147,7 @@ function currencyInputFactory() {
 function formatNumber(value) {
   return typeof value === 'undefined' || value === '' ? '' : value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
-},{}],"dom-components/createContentManager.js":[function(require,module,exports) {
+},{}],"components/ContentManager/createContentManager.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41036,7 +41155,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createContentManager = createContentManager;
 
-var _currency = require("../utils/currency.js");
+require("./ContentManager.scss");
+
+var _currency = require("./currency");
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -41137,7 +41258,7 @@ function createContentManager(_ref) {
     return rows;
   }
 }
-},{"../utils/currency.js":"utils/currency.js"}],"components/ContentManager.js":[function(require,module,exports) {
+},{"./ContentManager.scss":"components/ContentManager/ContentManager.scss","./currency":"components/ContentManager/currency.js"}],"components/ContentManager/ContentManager.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41147,7 +41268,7 @@ exports.default = ContentManager;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _createContentManager = require("../dom-components/createContentManager");
+var _createContentManager = require("./createContentManager");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -41166,10 +41287,6 @@ function ContentManager(_ref) {
 
   var container = (0, _react.useRef)(null);
   (0, _react.useEffect)(function () {
-    console.log('setting up content manager', {
-      title: title,
-      data: data
-    });
     (0, _createContentManager.createContentManager)({
       data: data,
       title: title,
@@ -41186,7 +41303,34 @@ function ContentManager(_ref) {
     ref: container
   });
 }
-},{"react":"../node_modules/react/index.js","../dom-components/createContentManager":"dom-components/createContentManager.js"}],"components/Tabs.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./createContentManager":"components/ContentManager/createContentManager.js"}],"components/ContentManager/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "createContentManager", {
+  enumerable: true,
+  get: function () {
+    return _createContentManager.createContentManager;
+  }
+});
+exports.default = void 0;
+
+var _ContentManager = _interopRequireDefault(require("./ContentManager"));
+
+var _createContentManager = require("./createContentManager");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _ContentManager.default;
+exports.default = _default;
+},{"./ContentManager":"components/ContentManager/ContentManager.js","./createContentManager":"components/ContentManager/createContentManager.js"}],"components/Tabs/_Tabs.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Tabs/Tabs.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41196,6 +41340,8 @@ exports.Tab = Tab;
 exports.Tabs = Tabs;
 
 var _react = _interopRequireWildcard(require("react"));
+
+require("./_Tabs.scss");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -41246,7 +41392,27 @@ function Tabs(_ref2) {
     if (child.props.label === activeTab) return child.props.children;
   })));
 }
-},{"react":"../node_modules/react/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./_Tabs.scss":"components/Tabs/_Tabs.scss"}],"components/Tabs/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "Tabs", {
+  enumerable: true,
+  get: function () {
+    return _Tabs.Tabs;
+  }
+});
+Object.defineProperty(exports, "Tab", {
+  enumerable: true,
+  get: function () {
+    return _Tabs.Tab;
+  }
+});
+
+var _Tabs = require("./Tabs");
+},{"./Tabs":"components/Tabs/Tabs.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireWildcard(require("react"));
@@ -41257,13 +41423,11 @@ require("remove-focus-outline");
 
 require("./scss/styles.scss");
 
-var _stateChangeBarGraph = require("./dom-components/state-change-bar-graph");
-
-var _StateChangeBarGraph = _interopRequireDefault(require("./components/StateChangeBarGraph"));
+var _StateChangeBarGraph = _interopRequireDefault(require("./components/StateChangeBarGraph/"));
 
 var _StateChangeDonutGraph = _interopRequireDefault(require("./components/StateChangeDonutGraph"));
 
-var _ContentManager = _interopRequireDefault(require("./components/ContentManager"));
+var _ContentManager = _interopRequireDefault(require("./components/ContentManager/"));
 
 var _Tabs = require("./components/Tabs");
 
@@ -41293,11 +41457,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+console.log({
+  DonutGraph: _StateChangeDonutGraph.default
+});
 var data = {
   current: [['Equities', '2,604,950'], ['Fixed income', '1,366,530'], ['Brokerage cash', '$230,050'], ['Alternative investments', '98,470']],
   next: [['Equities', '1,265,015'], ['Fixed income', '1,533,955'], ['Brokerage cash', '586,558'], ['Alternative investments', '839,691']]
-};
-var tblData = (0, _stateChangeBarGraph.processData)(data);
+}; // let tblData = processData(data);
 
 var App =
 /*#__PURE__*/
@@ -41359,8 +41525,7 @@ function (_Component) {
       var _this$state = this.state,
           showCurrent = _this$state.showCurrent,
           transitionShowCurrent = _this$state.transitionShowCurrent,
-          data = _this$state.data,
-          tblData = _this$state.tblData;
+          data = _this$state.data;
       var width = 550,
           height = 450;
       return _react.default.createElement("div", null, _react.default.createElement(_ContentManager.default, {
@@ -41441,7 +41606,7 @@ function toggle(name) {
     return _defineProperty({}, name, !state[name]);
   };
 }
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","remove-focus-outline":"../node_modules/remove-focus-outline/outline.js","./scss/styles.scss":"scss/styles.scss","./dom-components/state-change-bar-graph":"dom-components/state-change-bar-graph.js","./components/StateChangeBarGraph":"components/StateChangeBarGraph.js","./components/StateChangeDonutGraph":"components/StateChangeDonutGraph.js","./components/ContentManager":"components/ContentManager.js","./components/Tabs":"components/Tabs.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","remove-focus-outline":"../node_modules/remove-focus-outline/outline.js","./scss/styles.scss":"scss/styles.scss","./components/StateChangeBarGraph/":"components/StateChangeBarGraph/index.js","./components/StateChangeDonutGraph":"components/StateChangeDonutGraph/index.js","./components/ContentManager/":"components/ContentManager/index.js","./components/Tabs":"components/Tabs/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -41469,7 +41634,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57248" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56218" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
