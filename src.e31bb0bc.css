@@ -24,6 +24,10 @@ main {
   margin: 24px 0 42px;
 }
 
+.tab-content {
+  min-height: 85vh;
+}
+
 h1 {
   text-align: center;
   font-size: 1rem;
