@@ -40272,14 +40272,16 @@ function createChangeGraph(containerOrPath, _ref9) {
     }, function (update) {
       return update.transition().duration(function () {
         return type === 'curr' ? returnTransitionDuration : transitionDuration;
-      }).delay(function (d, i) {
-        if (type === 'curr') {
-          return 0;
-        }
-
-        var delay = this.parentNode.classList.contains('cls_buy') ? transitionDuration * 0.8 : 0;
-        return delay;
-      }).attrs(updates);
+      }) // .delay(function(d, i) {
+      // if (type === 'curr') {
+      //   return 0;
+      // }
+      // const delay = this.parentNode.classList.contains('cls_buy')
+      //   ? transitionDuration * 0.8
+      //   : 0;
+      // return delay;
+      // })
+      .attrs(updates);
     });
   }
 
@@ -41279,7 +41281,7 @@ function ContentManager(_ref) {
       _ref$onChange = _ref.onChange,
       _onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
       _ref$debounceWait = _ref.debounceWait,
-      debounceWait = _ref$debounceWait === void 0 ? 350 : _ref$debounceWait,
+      debounceWait = _ref$debounceWait === void 0 ? 650 : _ref$debounceWait,
       _ref$formatExistingIn = _ref.formatExistingInput,
       formatExistingInput = _ref$formatExistingIn === void 0 ? true : _ref$formatExistingIn,
       _ref$title = _ref.title,
@@ -41631,7 +41633,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58856" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50200" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
