@@ -56,6 +56,21 @@ h1 {
 .graph-container h3 {
   font-size: 1rem;
 }
+
+@media (max-width: 400px) {
+  .tab-list-item.tab-list-item {
+    padding: 0.5rem 0.42rem;
+    border-right: solid 1px #ccc;
+    font-size: 0.85rem;
+  }
+  .tab-list-item.tab-list-item:last-child {
+    border-right: none;
+  }
+
+  .tab-content {
+    margin: 0 -1rem 0 -1rem;
+  }
+}
 .split-title {
   text-align: center;
   font-size: 0.9rem;
@@ -185,6 +200,7 @@ h1 {
   list-style: none;
   margin-bottom: -1px;
   padding: 0.5rem 0.75rem;
+  color: #777;
   cursor: pointer;
 }
 .tab-list-item:hover {
@@ -192,6 +208,7 @@ h1 {
 }
 
 .tab-list-item-active {
+  color: #000;
   background-color: #f9f9f9;
   border-bottom: solid 3px #40b3f7;
 }
