@@ -17,7 +17,11 @@ main {
 
 .description {
   font-size: 0.8rem;
-  margin: 3rem 0.8rem 0.8rem;
+  margin: 1.4rem 0.8rem 0.8rem;
+}
+
+.tabs {
+  margin: 24px 0 42px;
 }
 
 h1 {
@@ -132,6 +136,27 @@ h1 {
 }
 .split-title button.is-selected:after {
   width: 100%;
+}
+
+.tab-list {
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+}
+
+.tab-list-item {
+  display: inline-block;
+  list-style: none;
+  margin-bottom: -1px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+.tab-list-item:hover {
+  background-color: white;
+}
+
+.tab-list-item-active {
+  background-color: #f9f9f9;
+  border-bottom: solid 3px #40b3f7;
 }
 
 /*# sourceMappingURL=/src.e31bb0bc.css.map */

@@ -40040,7 +40040,7 @@ _d3Selection.selection.prototype.styles = _styles.default;
 _d3Selection.selection.prototype.properties = _properties.default;
 _d3Transition.transition.prototype.attrs = _attrs2.default;
 _d3Transition.transition.prototype.styles = _styles2.default;
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","./src/selection/attrs":"../node_modules/d3-selection-multi/src/selection/attrs.js","./src/selection/styles":"../node_modules/d3-selection-multi/src/selection/styles.js","./src/selection/properties":"../node_modules/d3-selection-multi/src/selection/properties.js","./src/transition/attrs":"../node_modules/d3-selection-multi/src/transition/attrs.js","./src/transition/styles":"../node_modules/d3-selection-multi/src/transition/styles.js"}],"components/state-change-bar-graph.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","./src/selection/attrs":"../node_modules/d3-selection-multi/src/selection/attrs.js","./src/selection/styles":"../node_modules/d3-selection-multi/src/selection/styles.js","./src/selection/properties":"../node_modules/d3-selection-multi/src/selection/properties.js","./src/transition/attrs":"../node_modules/d3-selection-multi/src/transition/attrs.js","./src/transition/styles":"../node_modules/d3-selection-multi/src/transition/styles.js"}],"dom-components/state-change-bar-graph.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40206,10 +40206,6 @@ function createChangeGraph(containerOrPath, _ref9) {
             sell = _ref10.sell;
         return [].concat(_toConsumableArray(acc), [curr, next, sell]);
       }, []);
-      console.log({
-        arr: arr,
-        range: [Math.min.apply(null, arr), Math.max.apply(null, arr)]
-      });
       return [Math.min.apply(null, arr), Math.max.apply(null, arr)];
     }
   }
@@ -40404,257 +40400,7 @@ function wrapPre(text, colors) {
     return '#777';
   }
 }
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-selection-multi":"../node_modules/d3-selection-multi/index.js"}],"utils/currency.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.applyCurrencyHandler = applyCurrencyHandler;
-exports.currencyInputFactory = currencyInputFactory;
-exports.formatNumber = formatNumber;
-
-// module.exports = {
-//   applyCurrencyHandler,
-//   currencyInputFactory,
-//   formatNumber,
-// }
-// applies currencyHandler for contaner,
-// inputClassName identifies inputs to be handled as currency
-// inputIncomplete will be added to incomplete inputs after change
-// onUpdate call back function invoked ofter input and onFocusout events
-function applyCurrencyHandler(_ref) {
-  var container = _ref.container,
-      _ref$inputClassName = _ref.inputClassName,
-      inputClassName = _ref$inputClassName === void 0 ? 'currency' : _ref$inputClassName,
-      _ref$inputIncomplete = _ref.inputIncomplete,
-      inputIncomplete = _ref$inputIncomplete === void 0 ? 'currency_incomplete' : _ref$inputIncomplete,
-      _ref$onUpdate = _ref.onUpdate,
-      onUpdate = _ref$onUpdate === void 0 ? function () {} : _ref$onUpdate;
-
-  var _currencyInputFactory = currencyInputFactory({
-    inputClassName: inputClassName,
-    inputIncomplete: inputIncomplete
-  }),
-      onInput = _currencyInputFactory.onInput,
-      onFocusout = _currencyInputFactory.onFocusout;
-
-  function inputHandler(e) {
-    onUpdate(onInput(e));
-  }
-
-  function focusHandler(e) {
-    onUpdate(onFocusout(e));
-  }
-
-  container.addEventListener('input', inputHandler);
-  container.addEventListener('focusout', focusHandler);
-  return function () {
-    container.removeEventListener('input', inputHandler);
-    container.removeEventListener('input', focusHandler);
-  };
-}
-/**
- * returns function that takes input event and formats input target as currency
- * by adding commas where required.
- * while editing it keeps caret in the same position
- * it allows to edit also first digit without collapsing following 0's
- * so in editing from 1,000,000 to 2,000,000
- * deletion of 1 will leave  ,000,000 with caret in first position avoiding collapse to 0
- * returned function will return object containing input, inputs numeric value and completion status. If case of input text is  ,000,000 it value will be 0 and complete = false
- */
-
-
-function currencyInputFactory() {
-  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref2$inputClassName = _ref2.inputClassName,
-      inputClassName = _ref2$inputClassName === void 0 ? 'currency' : _ref2$inputClassName,
-      _ref2$inputIncomplete = _ref2.inputIncomplete,
-      inputIncomplete = _ref2$inputIncomplete === void 0 ? 'currency_incomplete' : _ref2$inputIncomplete;
-
-  return {
-    onInput: onInput,
-    onFocusout: onFocusout
-  };
-
-  function onInput(_ref3) {
-    var target = _ref3.target;
-    var value = target.value;
-
-    if (!target.classList.contains(inputClassName)) {
-      return;
-    }
-
-    var formattedValue = value.replace(/[^0-9]/g, '');
-    var restoreCaret = saveCaretPosition(target);
-
-    if (canUpdate(formattedValue)) {
-      formattedValue = formatNumber(formattedValue);
-    }
-
-    target.value = formattedValue;
-    restoreCaret();
-    return {
-      input: target,
-      value: +value.replace(/[^0-9]/g, ''),
-      complete: isComplete(formattedValue)
-    };
-  }
-
-  function onFocusout(_ref4) {
-    var target = _ref4.target;
-    var value = target.value;
-
-    if (!target.classList.contains(inputClassName)) {
-      return;
-    }
-
-    var formattedValue = formatNumber(+value.replace(/[^0-9]/g, ''));
-    target.value = formattedValue;
-    return {
-      input: target,
-      value: +value.replace(/[^0-9]/g, ''),
-      complete: true
-    };
-  }
-
-  function canUpdate(ui) {
-    var allowEditFirstDigit = '(^(,|)0)';
-    var allowEmpty = '(^$)';
-    var re = new RegExp("".concat(allowEditFirstDigit, "|").concat(allowEmpty));
-    return !re.test(ui.value);
-  }
-
-  function saveCaretPosition(ui) {
-    if (document.activeElement !== ui) {
-      return function () {};
-    }
-
-    var positonFromEnd = ui.value.length - ui.selectionEnd;
-    return function () {
-      var pos = Math.max(0, ui.value.length - positonFromEnd);
-      ui.setSelectionRange(pos, pos);
-    };
-  }
-
-  function isComplete(val) {
-    return /^\d/.test(val);
-  }
-}
-
-function formatNumber(value) {
-  return typeof value === 'undefined' || value === '' ? '' : value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-},{}],"components/createContentManager.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createContentManager = createContentManager;
-
-var _currency = require("../utils/currency.js");
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function createContentManager(_ref) {
-  var contentHost = _ref.contentHost,
-      _ref$data = _ref.data,
-      data = _ref$data === void 0 ? [] : _ref$data,
-      _ref$onChange = _ref.onChange,
-      onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
-      _ref$debounceWait = _ref.debounceWait,
-      debounceWait = _ref$debounceWait === void 0 ? 350 : _ref$debounceWait,
-      _ref$formatExistingIn = _ref.formatExistingInput,
-      formatExistingInput = _ref$formatExistingIn === void 0 ? true : _ref$formatExistingIn,
-      _ref$title = _ref.title,
-      title = _ref$title === void 0 ? 'Data Editor' : _ref$title;
-  var container = typeof contentHost === 'string' ? document.querySelector(contentHost) : contentHost;
-  var tbl, currentData;
-  init();
-  update(data);
-  (0, _currency.applyCurrencyHandler)({
-    container: tbl,
-    onUpdate: debounce(function (res) {
-      return onChange(getContent());
-    }, debounceWait)
-  });
-  return {
-    update: update,
-    destroy: destroy
-  };
-
-  function debounce(fn, wait) {
-    var timeout;
-    return function () {
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      clearTimeout(timeout);
-      timeout = setTimeout(function () {
-        timeout = null;
-        fn.apply(null, args);
-      }, wait);
-    };
-  }
-
-  function update(data) {
-    currentData = data || currentData;
-    var content = "\n      <table>\n        ".concat(currentData.map(buildRow).join(''), "\n      </table>\n    ");
-    tbl.innerHTML = content;
-  }
-
-  function destroy() {}
-
-  function init() {
-    var titleEl = document.createElement('h3');
-    titleEl.innerHTML = title;
-    container.append(titleEl);
-    tbl = document.createElement('table');
-    container.append(tbl);
-    var controls = document.createElement('div');
-    container.append(controls);
-    var btnAdd = document.createElement('button');
-    btnAdd.innerText = '+';
-    btnAdd.title = 'Add row for new item';
-    btnAdd.classList.add('add');
-    btnAdd.addEventListener('click', function () {
-      currentData.push(['', '']);
-      update();
-    });
-    controls.append(btnAdd); // const btnUpdate = document.createElement('button');
-    // btnUpdate.innerText = 'Update';
-    // btnUpdate.addEventListener('click', () => {
-    //   onChange(getContent());
-    // });
-    // controls.append(btnUpdate);
-  }
-
-  function buildRow(rowData, rowIndex) {
-    var rowContent = rowData.map(function (cell, i) {
-      return "\n      <td>\n       <span ".concat(i && 'class="currency-wrapper"' || '', ">\n        <input type=\"text\" value=\"").concat(i ? (0, _currency.formatNumber)(cell) : cell, "\" ").concat(i && 'class="currency"' || '', ">\n       </span>\n      </td>\n      ");
-    }).join('');
-    return "\n    <tr>\n      ".concat(rowContent, "\n    </tr>");
-  }
-
-  function getContent() {
-    var rows = _toConsumableArray(tbl.querySelectorAll('tr')).map(function (row) {
-      return _toConsumableArray(row.querySelectorAll('input')).map(function (input) {
-        return input.value;
-      });
-    });
-
-    return rows;
-  }
-}
-},{"../utils/currency.js":"utils/currency.js"}],"components/SplitTitle.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","d3-axis":"../node_modules/d3-axis/src/index.js","d3-scale":"../node_modules/d3-scale/src/index.js","d3-shape":"../node_modules/d3-shape/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","d3-transition":"../node_modules/d3-transition/src/index.js","d3-selection-multi":"../node_modules/d3-selection-multi/index.js"}],"components/SplitTitle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40719,7 +40465,7 @@ exports.default = StateChageGraph;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _stateChangeBarGraph = require("./state-change-bar-graph");
+var _stateChangeBarGraph = require("../dom-components/state-change-bar-graph");
 
 var _SplitTitle = _interopRequireDefault(require("./SplitTitle"));
 
@@ -40742,31 +40488,48 @@ function StateChageGraph(_ref) {
       className = _ref$className === void 0 ? '' : _ref$className;
   var svg = (0, _react.useRef)(null);
   var updateFn = (0, _react.useRef)();
+
+  function checkData(data) {
+    if (data.current) {
+      return (0, _stateChangeBarGraph.processData)(data);
+    }
+
+    return data;
+  }
+
   (0, _react.useEffect)(function () {
     if (!updateFn.current) {
       updateFn.current = (0, _stateChangeBarGraph.createChangeGraph)(svg.current, {
-        data: data,
+        data: checkData(data),
         initialType: type,
-        margin: margin
+        margin: margin,
+        width: width,
+        height: height
       });
     } else {
       updateFn.current.update({
-        data: data,
+        data: checkData(data),
         type: type
       });
     }
-  });
+  }, [data, type]);
+  var viewBox = "0 0 ".concat(width, " ").concat(height);
   return _react.default.createElement("div", null, _react.default.createElement(_SplitTitle.default, {
     title: title,
     firstSelected: firstSelected,
     onSelect: onSelect
   }), _react.default.createElement("svg", {
+    viewBox: viewBox,
+    style: {
+      width: '100%',
+      height: '100%'
+    },
     width: width,
     height: height,
     ref: svg
   }));
 }
-},{"react":"../node_modules/react/index.js","./state-change-bar-graph":"components/state-change-bar-graph.js","./SplitTitle":"components/SplitTitle.js"}],"components/state-change-donut-graph.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../dom-components/state-change-bar-graph":"dom-components/state-change-bar-graph.js","./SplitTitle":"components/SplitTitle.js"}],"dom-components/state-change-donut-graph.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41071,7 +40834,7 @@ exports.default = StateChageDonutGraph;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _stateChangeDonutGraph = _interopRequireDefault(require("./state-change-donut-graph"));
+var _stateChangeDonutGraph = _interopRequireDefault(require("../dom-components/state-change-donut-graph"));
 
 var _SplitTitle = _interopRequireDefault(require("./SplitTitle"));
 
@@ -41124,7 +40887,366 @@ function StateChageDonutGraph(_ref) {
     }
   }));
 }
-},{"react":"../node_modules/react/index.js","./state-change-donut-graph":"components/state-change-donut-graph.js","./SplitTitle":"components/SplitTitle.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../dom-components/state-change-donut-graph":"dom-components/state-change-donut-graph.js","./SplitTitle":"components/SplitTitle.js"}],"utils/currency.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.applyCurrencyHandler = applyCurrencyHandler;
+exports.currencyInputFactory = currencyInputFactory;
+exports.formatNumber = formatNumber;
+
+// module.exports = {
+//   applyCurrencyHandler,
+//   currencyInputFactory,
+//   formatNumber,
+// }
+// applies currencyHandler for contaner,
+// inputClassName identifies inputs to be handled as currency
+// inputIncomplete will be added to incomplete inputs after change
+// onUpdate call back function invoked ofter input and onFocusout events
+function applyCurrencyHandler(_ref) {
+  var container = _ref.container,
+      _ref$inputClassName = _ref.inputClassName,
+      inputClassName = _ref$inputClassName === void 0 ? 'currency' : _ref$inputClassName,
+      _ref$inputIncomplete = _ref.inputIncomplete,
+      inputIncomplete = _ref$inputIncomplete === void 0 ? 'currency_incomplete' : _ref$inputIncomplete,
+      _ref$onUpdate = _ref.onUpdate,
+      onUpdate = _ref$onUpdate === void 0 ? function () {} : _ref$onUpdate;
+
+  var _currencyInputFactory = currencyInputFactory({
+    inputClassName: inputClassName,
+    inputIncomplete: inputIncomplete
+  }),
+      onInput = _currencyInputFactory.onInput,
+      onFocusout = _currencyInputFactory.onFocusout;
+
+  function inputHandler(e) {
+    onUpdate(onInput(e));
+  }
+
+  function focusHandler(e) {
+    onUpdate(onFocusout(e));
+  }
+
+  container.addEventListener('input', inputHandler);
+  container.addEventListener('focusout', focusHandler);
+  return function () {
+    container.removeEventListener('input', inputHandler);
+    container.removeEventListener('input', focusHandler);
+  };
+}
+/**
+ * returns function that takes input event and formats input target as currency
+ * by adding commas where required.
+ * while editing it keeps caret in the same position
+ * it allows to edit also first digit without collapsing following 0's
+ * so in editing from 1,000,000 to 2,000,000
+ * deletion of 1 will leave  ,000,000 with caret in first position avoiding collapse to 0
+ * returned function will return object containing input, inputs numeric value and completion status. If case of input text is  ,000,000 it value will be 0 and complete = false
+ */
+
+
+function currencyInputFactory() {
+  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref2$inputClassName = _ref2.inputClassName,
+      inputClassName = _ref2$inputClassName === void 0 ? 'currency' : _ref2$inputClassName,
+      _ref2$inputIncomplete = _ref2.inputIncomplete,
+      inputIncomplete = _ref2$inputIncomplete === void 0 ? 'currency_incomplete' : _ref2$inputIncomplete;
+
+  return {
+    onInput: onInput,
+    onFocusout: onFocusout
+  };
+
+  function onInput(_ref3) {
+    var target = _ref3.target;
+    var value = target.value;
+
+    if (!target.classList.contains(inputClassName)) {
+      return;
+    }
+
+    var formattedValue = value.replace(/[^0-9]/g, '');
+    var restoreCaret = saveCaretPosition(target);
+
+    if (canUpdate(formattedValue)) {
+      formattedValue = formatNumber(formattedValue);
+    }
+
+    target.value = formattedValue;
+    restoreCaret();
+    return {
+      input: target,
+      value: +value.replace(/[^0-9]/g, ''),
+      complete: isComplete(formattedValue)
+    };
+  }
+
+  function onFocusout(_ref4) {
+    var target = _ref4.target;
+    var value = target.value;
+
+    if (!target.classList.contains(inputClassName)) {
+      return;
+    }
+
+    var formattedValue = formatNumber(+value.replace(/[^0-9]/g, ''));
+    target.value = formattedValue;
+    return {
+      input: target,
+      value: +value.replace(/[^0-9]/g, ''),
+      complete: true
+    };
+  }
+
+  function canUpdate(ui) {
+    var allowEditFirstDigit = '(^(,|)0)';
+    var allowEmpty = '(^$)';
+    var re = new RegExp("".concat(allowEditFirstDigit, "|").concat(allowEmpty));
+    return !re.test(ui.value);
+  }
+
+  function saveCaretPosition(ui) {
+    if (document.activeElement !== ui) {
+      return function () {};
+    }
+
+    var positonFromEnd = ui.value.length - ui.selectionEnd;
+    return function () {
+      var pos = Math.max(0, ui.value.length - positonFromEnd);
+      ui.setSelectionRange(pos, pos);
+    };
+  }
+
+  function isComplete(val) {
+    return /^\d/.test(val);
+  }
+}
+
+function formatNumber(value) {
+  return typeof value === 'undefined' || value === '' ? '' : value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+},{}],"dom-components/createContentManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createContentManager = createContentManager;
+
+var _currency = require("../utils/currency.js");
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function createContentManager(_ref) {
+  var contentHost = _ref.contentHost,
+      _ref$data = _ref.data,
+      data = _ref$data === void 0 ? [] : _ref$data,
+      _ref$onChange = _ref.onChange,
+      onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
+      _ref$debounceWait = _ref.debounceWait,
+      debounceWait = _ref$debounceWait === void 0 ? 350 : _ref$debounceWait,
+      _ref$formatExistingIn = _ref.formatExistingInput,
+      formatExistingInput = _ref$formatExistingIn === void 0 ? true : _ref$formatExistingIn,
+      _ref$title = _ref.title,
+      title = _ref$title === void 0 ? 'Data Editor' : _ref$title;
+  var container = typeof contentHost === 'string' ? document.querySelector(contentHost) : contentHost;
+  var tbl, currentData;
+  init();
+  update(data);
+  (0, _currency.applyCurrencyHandler)({
+    container: tbl,
+    onUpdate: debounce(function (res) {
+      return onChange(getContent());
+    }, debounceWait)
+  });
+  return {
+    update: update,
+    destroy: destroy
+  };
+
+  function debounce(fn, wait) {
+    var timeout;
+    return function () {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      clearTimeout(timeout);
+      timeout = setTimeout(function () {
+        timeout = null;
+        fn.apply(null, args);
+      }, wait);
+    };
+  }
+
+  function update(data) {
+    currentData = data || currentData;
+    var content = "\n      <table>\n        ".concat(currentData.map(buildRow).join(''), "\n      </table>\n    ");
+    tbl.innerHTML = content;
+  }
+
+  function destroy() {}
+
+  function init() {
+    var titleEl = document.createElement('h3');
+    titleEl.innerHTML = title;
+    container.append(titleEl);
+    tbl = document.createElement('table');
+    container.append(tbl);
+    var controls = document.createElement('div');
+    container.append(controls);
+    var btnAdd = document.createElement('button');
+    btnAdd.innerText = '+';
+    btnAdd.title = 'Add row for new item';
+    btnAdd.classList.add('add');
+    btnAdd.addEventListener('click', function () {
+      currentData.push(['', '']);
+      update();
+    });
+    controls.append(btnAdd); // const btnUpdate = document.createElement('button');
+    // btnUpdate.innerText = 'Update';
+    // btnUpdate.addEventListener('click', () => {
+    //   onChange(getContent());
+    // });
+    // controls.append(btnUpdate);
+  }
+
+  function buildRow(rowData, rowIndex) {
+    var rowContent = rowData.map(function (cell, i) {
+      return "\n      <td>\n       <span ".concat(i && 'class="currency-wrapper"' || '', ">\n        <input type=\"text\" value=\"").concat(i ? (0, _currency.formatNumber)(cell) : cell, "\" ").concat(i && 'class="currency"' || '', ">\n       </span>\n      </td>\n      ");
+    }).join('');
+    return "\n    <tr>\n      ".concat(rowContent, "\n    </tr>");
+  }
+
+  function getContent() {
+    var rows = _toConsumableArray(tbl.querySelectorAll('tr')).map(function (row) {
+      return _toConsumableArray(row.querySelectorAll('input')).map(function (input) {
+        return input.value;
+      });
+    });
+
+    return rows;
+  }
+}
+},{"../utils/currency.js":"utils/currency.js"}],"components/ContentManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ContentManager;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _createContentManager = require("../dom-components/createContentManager");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function ContentManager(_ref) {
+  var contentHost = _ref.contentHost,
+      _ref$data = _ref.data,
+      data = _ref$data === void 0 ? [] : _ref$data,
+      _ref$onChange = _ref.onChange,
+      _onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
+      _ref$debounceWait = _ref.debounceWait,
+      debounceWait = _ref$debounceWait === void 0 ? 350 : _ref$debounceWait,
+      _ref$formatExistingIn = _ref.formatExistingInput,
+      formatExistingInput = _ref$formatExistingIn === void 0 ? true : _ref$formatExistingIn,
+      _ref$title = _ref.title,
+      title = _ref$title === void 0 ? 'Data Editor' : _ref$title;
+
+  var container = (0, _react.useRef)(null);
+  (0, _react.useEffect)(function () {
+    console.log('setting up content manager', {
+      title: title,
+      data: data
+    });
+    (0, _createContentManager.createContentManager)({
+      data: data,
+      title: title,
+      contentHost: container.current,
+      onChange: function onChange(next) {
+        return _onChange({
+          next: next
+        });
+      }
+    });
+  }, []);
+  return _react.default.createElement("div", {
+    className: "content-manager",
+    ref: container
+  });
+}
+},{"react":"../node_modules/react/index.js","../dom-components/createContentManager":"dom-components/createContentManager.js"}],"components/Tabs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Tab = Tab;
+exports.Tabs = Tabs;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function Tab(_ref) {
+  var isActive = _ref.isActive,
+      label = _ref.label,
+      _onClick = _ref.onClick;
+  var className = "tab-list-item ".concat(isActive ? 'tab-list-item-active' : '');
+  return _react.default.createElement("li", {
+    className: className,
+    onClick: function onClick() {
+      return _onClick(label);
+    }
+  }, label);
+}
+
+function Tabs(_ref2) {
+  var children = _ref2.children;
+
+  var _useState = (0, _react.useState)(children[0].props.label),
+      _useState2 = _slicedToArray(_useState, 2),
+      activeTab = _useState2[0],
+      setActiveTab = _useState2[1];
+
+  return _react.default.createElement("div", {
+    className: "tabs"
+  }, _react.default.createElement("ol", {
+    className: "tab-list"
+  }, children.map(function (child) {
+    var label = child.props.label;
+    return _react.default.createElement(Tab, {
+      label: label,
+      isActive: label === activeTab,
+      onClick: setActiveTab,
+      key: label
+    });
+  })), _react.default.createElement("div", {
+    className: "tab-content"
+  }, children.map(function (child) {
+    if (child.props.label === activeTab) return child.props.children;
+  })));
+}
+},{"react":"../node_modules/react/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireWildcard(require("react"));
@@ -41135,21 +41257,25 @@ require("remove-focus-outline");
 
 require("./scss/styles.scss");
 
-var _stateChangeBarGraph = require("./components/state-change-bar-graph");
-
-var _createContentManager = require("./components/createContentManager.js");
+var _stateChangeBarGraph = require("./dom-components/state-change-bar-graph");
 
 var _StateChangeBarGraph = _interopRequireDefault(require("./components/StateChangeBarGraph"));
 
 var _StateChangeDonutGraph = _interopRequireDefault(require("./components/StateChangeDonutGraph"));
 
+var _ContentManager = _interopRequireDefault(require("./components/ContentManager"));
+
+var _Tabs = require("./components/Tabs");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -41187,7 +41313,8 @@ function (_Component) {
     _this.state = {
       showCurrent: false,
       transitionShowCurrent: true,
-      autoSwitch: true
+      autoSwitch: true,
+      data: data
     };
     return _this;
   }
@@ -41209,11 +41336,20 @@ function (_Component) {
   }, {
     key: "setTransition",
     value: function setTransition(value) {
-      console.log('updated ' + value);
       this.setState({
         transitionShowCurrent: value
       });
       clearInterval(this.transitionInterval);
+    }
+  }, {
+    key: "onContentChange",
+    value: function onContentChange(index, value) {
+      this.setState(function (_ref) {
+        var data = _ref.data;
+        return {
+          data: _objectSpread({}, data, _defineProperty({}, index, value))
+        };
+      });
     }
   }, {
     key: "render",
@@ -41222,44 +41358,31 @@ function (_Component) {
 
       var _this$state = this.state,
           showCurrent = _this$state.showCurrent,
-          transitionShowCurrent = _this$state.transitionShowCurrent;
+          transitionShowCurrent = _this$state.transitionShowCurrent,
+          data = _this$state.data,
+          tblData = _this$state.tblData;
       var width = 550,
           height = 450;
-      return _react.default.createElement("div", null, _react.default.createElement("div", {
-        className: "donut-graphs"
-      }, _react.default.createElement("p", {
-        className: "description"
-      }, "I. Distinct current and proposed graphs are well suitable for printed media but not ideal for assessing change requiring scanning both graphs for change."), _react.default.createElement("div", null, _react.default.createElement("div", {
-        className: "static-donut-graphs"
-      }, _react.default.createElement(_StateChangeDonutGraph.default, {
-        data: data.current,
+      return _react.default.createElement("div", null, _react.default.createElement(_ContentManager.default, {
         title: "Current",
-        width: 250
-      }), _react.default.createElement(_StateChangeDonutGraph.default, {
-        data: data.next,
-        title: "Proposed",
-        width: 250
-      }))), _react.default.createElement("div", null, _react.default.createElement("p", {
-        className: "description"
-      }, "II. Interactive graph visualizes change using animation and requires considerably less screen area."), _react.default.createElement("div", {
-        className: "transition-donught-graphs"
-      }, _react.default.createElement(_StateChangeDonutGraph.default, {
-        title: "Current::Proposed",
-        data: transitionShowCurrent ? data.current : data.next,
-        firstSelected: transitionShowCurrent,
-        onSelect: function onSelect(value) {
-          return _this3.setTransition(value);
-        },
-        width: 250
-      })))), _react.default.createElement("div", {
-        className: "graph-container",
-        style: {
-          width: width
+        data: data.current,
+        onChange: function onChange(_ref2) {
+          var next = _ref2.next;
+          return _this3.onContentChange('current', next);
         }
+      }), _react.default.createElement(_ContentManager.default, {
+        title: "Proposed",
+        data: data.next,
+        onChange: function onChange(_ref3) {
+          var next = _ref3.next;
+          return _this3.onContentChange('next', next);
+        }
+      }), _react.default.createElement(_Tabs.Tabs, null, _react.default.createElement("div", {
+        label: "Transition"
       }, _react.default.createElement("p", {
         className: "description"
-      }, "III. Interactive bar graph visualizes transition using distinct values."), _react.default.createElement(_StateChangeBarGraph.default, {
-        data: tblData,
+      }, "Bar graph defining change amount in in each category in relation to static and recomended values."), _react.default.createElement(_StateChangeBarGraph.default, {
+        data: data,
         width: width,
         height: height,
         type: showCurrent ? 'curr' : 'all',
@@ -41270,7 +41393,35 @@ function (_Component) {
           });
         },
         title: "Current::Transition"
-      })));
+      })), _react.default.createElement("div", {
+        label: "Animated change"
+      }, _react.default.createElement("p", {
+        className: "description"
+      }, "Interactive graph visualizes change using animation."), _react.default.createElement("div", {
+        className: "transition-donught-graphs"
+      }, _react.default.createElement(_StateChangeDonutGraph.default, {
+        title: "Current::Proposed",
+        data: transitionShowCurrent ? data.current : data.next,
+        firstSelected: transitionShowCurrent,
+        onSelect: function onSelect(value) {
+          return _this3.setTransition(value);
+        },
+        width: 250
+      }))), _react.default.createElement("div", {
+        label: "Static Donut Graph"
+      }, _react.default.createElement("p", {
+        className: "description"
+      }, "Distinct current and proposed graphs are well suitable for printed media but not ideal for assessing the change as it requires scanning both graphs for change."), _react.default.createElement("div", null, _react.default.createElement("div", {
+        className: "static-donut-graphs"
+      }, _react.default.createElement(_StateChangeDonutGraph.default, {
+        data: data.current,
+        title: "Current",
+        width: 250
+      }), _react.default.createElement(_StateChangeDonutGraph.default, {
+        data: data.next,
+        title: "Proposed",
+        width: 250
+      }))))));
     }
   }]);
 
@@ -41284,49 +41435,13 @@ function renderApp() {
 }
 
 renderApp();
-(0, _createContentManager.createContentManager)({
-  contentHost: '.managerA',
-  data: data.current,
-  onChange: function onChange(current) {
-    return updateContent({
-      current: current
-    });
-  },
-  title: 'Current'
-});
-(0, _createContentManager.createContentManager)({
-  contentHost: '.managerB',
-  data: data.next,
-  onChange: function onChange(next) {
-    return updateContent({
-      next: next
-    });
-  },
-  title: 'Proposed'
-});
-
-function updateContent(_ref) {
-  var current = _ref.current,
-      next = _ref.next;
-
-  if (current) {
-    data.current = current;
-  }
-
-  if (next) {
-    data.next = next;
-  }
-
-  tblData = (0, _stateChangeBarGraph.processData)(data);
-  renderApp();
-}
 
 function toggle(name) {
   return function (state) {
     return _defineProperty({}, name, !state[name]);
   };
 }
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","remove-focus-outline":"../node_modules/remove-focus-outline/outline.js","./scss/styles.scss":"scss/styles.scss","./components/state-change-bar-graph":"components/state-change-bar-graph.js","./components/createContentManager.js":"components/createContentManager.js","./components/StateChangeBarGraph":"components/StateChangeBarGraph.js","./components/StateChangeDonutGraph":"components/StateChangeDonutGraph.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","remove-focus-outline":"../node_modules/remove-focus-outline/outline.js","./scss/styles.scss":"scss/styles.scss","./dom-components/state-change-bar-graph":"dom-components/state-change-bar-graph.js","./components/StateChangeBarGraph":"components/StateChangeBarGraph.js","./components/StateChangeDonutGraph":"components/StateChangeDonutGraph.js","./components/ContentManager":"components/ContentManager.js","./components/Tabs":"components/Tabs.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -41354,7 +41469,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54751" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57248" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
