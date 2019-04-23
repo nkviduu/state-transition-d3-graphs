@@ -41457,9 +41457,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-console.log({
-  DonutGraph: _StateChangeDonutGraph.default
-});
 var data = {
   current: [['Equities', '2,604,950'], ['Fixed income', '1,366,530'], ['Brokerage cash', '$230,050'], ['Alternative investments', '98,470']],
   next: [['Equities', '1,265,015'], ['Fixed income', '1,533,955'], ['Brokerage cash', '586,558'], ['Alternative investments', '839,691']]
@@ -41546,7 +41543,7 @@ function (_Component) {
         label: "Transition"
       }, _react.default.createElement("p", {
         className: "description"
-      }, "Bar graph defining change amount in in each category in relation to static and recomended values."), _react.default.createElement(_StateChangeBarGraph.default, {
+      }, "Bar graph defining each categories change amount with reference to static and new values."), _react.default.createElement(_StateChangeBarGraph.default, {
         data: data,
         width: width,
         height: height,
@@ -41634,7 +41631,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59985" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63015" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
