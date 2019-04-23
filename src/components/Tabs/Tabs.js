@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import './_Tabs.scss';
+
 export function Tab({ isActive, label, onClick }) {
   const className = `tab-list-item ${isActive ? 'tab-list-item-active' : ''}`;
 

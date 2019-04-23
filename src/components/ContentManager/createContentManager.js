@@ -1,4 +1,6 @@
-import { applyCurrencyHandler, formatNumber } from '../utils/currency.js';
+import './ContentManager.scss'
+import { applyCurrencyHandler, formatNumber } from './currency';
+
 
 export function createContentManager({
   contentHost,

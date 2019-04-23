@@ -47,7 +47,16 @@ h1 {
   max-width: 45vw;
 }
 
-@import '_graph-container';
-@import 'components/ContentManager';
-@import 'components/_SplitTitle';
-@import 'components/_Tabs';
+.graph-container {
+  width: 600px;
+
+  > label {
+    font-size: 0.8rem;
+    margin: 0 36px;
+    display: block;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+}

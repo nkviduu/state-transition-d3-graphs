@@ -1,13 +1,12 @@
-// module.exports = {
-//   applyCurrencyHandler,
-//   currencyInputFactory,
-//   formatNumber,
-// }
 
-// applies currencyHandler for contaner,
-// inputClassName identifies inputs to be handled as currency
-// inputIncomplete will be added to incomplete inputs after change
-// onUpdate call back function invoked ofter input and onFocusout events
+/**
+ * 
+ * @param {object} config 
+ * applies currencyHandler for contaner,
+ * inputClassName identifies inputs to be handled as currency
+ * inputIncomplete will be added to incomplete inputs after change
+ * onUpdate call back function invoked ofter input and onFocusout events
+ */
 export function applyCurrencyHandler({
   container,
   inputClassName = 'currency',

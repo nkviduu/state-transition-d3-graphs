@@ -1,4 +1,5 @@
 import React from 'react';
+import './_SplitTitle.scss';
 
 export default function SplitTitle({
   title,
@@ -18,7 +19,7 @@ export default function SplitTitle({
     <div className="split-title">
       <button
         className={(firstSelected && 'is-selected') || ''}
-        onClick={() => (console.log('select'), onSelect(true))}
+        onClick={() => onSelect(true)}
       >
         {first}
       </button>

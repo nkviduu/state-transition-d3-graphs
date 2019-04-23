@@ -4,12 +4,14 @@ import 'remove-focus-outline';
 
 import './scss/styles.scss';
 
-import { processData } from './dom-components/state-change-bar-graph';
+// import { processData } from './components/StateChangeBarGraph/state-change-bar-graph';
 
-import BarGraph from './components/StateChangeBarGraph';
+import BarGraph from './components/StateChangeBarGraph/';
 import DonutGraph from './components/StateChangeDonutGraph';
-import ContentManager from './components/ContentManager';
+import ContentManager from './components/ContentManager/';
 import { Tab, Tabs } from './components/Tabs';
+
+console.log({ DonutGraph })
 
 const data = {
   current: [
@@ -26,7 +28,7 @@ const data = {
   ],
 };
 
-let tblData = processData(data);
+// let tblData = processData(data);
 
 class App extends Component {
   constructor(props) {
@@ -59,7 +61,7 @@ class App extends Component {
   }
 
   render() {
-    const { showCurrent, transitionShowCurrent, data, tblData } = this.state;
+    const { showCurrent, transitionShowCurrent, data } = this.state;
     const [width, height] = [550, 450];
 
     return (
@@ -74,7 +76,6 @@ class App extends Component {
           data={data.next}
           onChange={({ next }) => this.onContentChange('next', next)}
         />
-
         <Tabs>
           <div label="Transition">
             <p className="description">

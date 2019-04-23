@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { createContentManager } from '../dom-components/createContentManager';
+import { createContentManager } from './createContentManager';
 
 export default function ContentManager({
   contentHost,
@@ -12,8 +12,6 @@ export default function ContentManager({
   const container = useRef(null);
 
   useEffect(() => {
-    console.log('setting up content manager', { title, data });
-
     createContentManager({
       data,
       title,

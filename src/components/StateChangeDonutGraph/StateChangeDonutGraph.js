@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import createGraph from '../dom-components/state-change-donut-graph';
+import createGraph from './state-change-donut-graph';
 import SplitTitle from './SplitTitle';
 
 export default function StateChageDonutGraph({

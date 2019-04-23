@@ -6,8 +6,8 @@
 	"homepage": "https://nkviduu.github.io/state-transition-d3-graphs",
 	"scripts": {
 		"clean": "rm dist/bundle.js",
-    "start": "parcel src/index.html",
-    "deploy": "gh-pages -d dist",
+		"start": "parcel src/index.html",
+		"deploy": "gh-pages -d dist",
 		"build": "NODE_ENV=production parcel build src/index.html build",
 		"build-prod": "NODE_ENV=production parcel build src/index.html build --experimental-scope-hoisting --public-url '.' "
 	},

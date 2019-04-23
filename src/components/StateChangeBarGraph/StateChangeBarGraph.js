@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import {
   createChangeGraph,
   processData,
-} from '../dom-components/state-change-bar-graph';
+} from './state-change-bar-graph';
 import SplitTitle from './SplitTitle';
 
 export default function StateChageGraph({

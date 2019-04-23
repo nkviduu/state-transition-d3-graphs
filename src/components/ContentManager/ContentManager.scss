@@ -1,34 +1,36 @@
+$subheadingFontSize: 0.8rem !default;
+$fontSize: 0.65rem !default;
+
 .content-manager {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-family: Arial;
   display: inline-block;
   padding: 8px;
-  
-  
+
   table {
     border-collapse: collapse;
   }
-  
+
   h3 {
     margin: 0 4px 12px;
     font-size: $subheadingFontSize;
     font-weight: normal;
   }
-  
+
   input {
     border: none;
     margin: 0;
     border-bottom: solid 1px #ccc;
     padding: 4px;
-    
+
     font-size: $fontSize;
     font-family: Arial;
   }
-  
+
   td:first-child input {
     font-weight: bold;
   }
-  
+
   input.currency {
     width: 70px;
     text-align: right;
@@ -38,7 +40,7 @@
 
   .currency-wrapper {
     position: relative;
-    
+
     &:before {
       content: '$';
       color: #aaa;
@@ -47,11 +49,10 @@
       top: 1px;
     }
   }
-  
-  
-  button.add  {
+
+  button.add {
     padding: 2px 5px;
-    font-size: .8rem;
+    font-size: 0.8rem;
     background: white;
     border: solid 1px #eee;
   }

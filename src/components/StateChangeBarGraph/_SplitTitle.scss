@@ -1,10 +1,10 @@
-$splitTitleSize: .9rem;
+$splitTitleSize: 0.9rem;
 
 .split-title {
   text-align: center;
   font-size: $splitTitleSize;
 
-    button {
+  button {
     display: inline-block;
     margin: 0 6px;
     padding: 0 0 4px;
@@ -12,13 +12,12 @@ $splitTitleSize: .9rem;
     border: none;
     transition: all 350ms;
     font-size: $splitTitleSize;
-    opacity: .5;
+    opacity: 0.5;
     position: relative;
     cursor: pointer;
 
-
     &:after {
-      content: "";
+      content: '';
       width: 0;
       height: 2px;
       left: 0;
@@ -40,6 +39,5 @@ $splitTitleSize: .9rem;
     &.is-selected:after {
       width: 100%;
     }
-
   }
 }
